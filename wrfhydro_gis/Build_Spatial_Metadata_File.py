@@ -45,8 +45,8 @@ except:
     sys.exit('ERROR: cannot find GDAL/OGR modules')
 #from gdalnumeric import *
 
-# Import function library into namespace. Must exist in same directory as this script.
-from wrfhydro_functions import (WRF_Hydro_Grid, projdict, flip_grid,
+# Import function library into namespace.
+from .wrfhydro_functions import (WRF_Hydro_Grid, projdict, flip_grid,
     numpy_to_Raster, wgs84_proj4, ReprojectCoords, outNCType, create_CF_NetCDF,
     Geogrid_MapVars)
 

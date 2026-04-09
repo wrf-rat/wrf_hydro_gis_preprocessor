@@ -39,9 +39,8 @@ try:
 except:
     sys.exit('ERROR: cannot find GDAL/OGR modules')
 
-# Import function library into namespace. Must exist in same directory as this script.
-# Import wrfhydro_functions as wrfh, Function script packaged with this toolbox
-from wrfhydro_functions import (get_projection_from_raster, wgs84_proj4, getxy,
+# Import function library into namespace.
+from .wrfhydro_functions import (get_projection_from_raster, wgs84_proj4, getxy,
     ReprojectCoords, numpy_to_Raster)
 
 # Global Variables

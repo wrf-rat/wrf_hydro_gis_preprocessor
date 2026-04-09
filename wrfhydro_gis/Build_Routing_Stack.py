@@ -49,8 +49,8 @@ try:
 except:
     sys.exit('ERROR: cannot find GDAL/OGR modules')
 
-# Import function library into namespace. Must exist in same directory as this script.
-import wrfhydro_functions as wrfh                                               # Function script packaged with this toolbox
+# Import function library into namespace.
+from . import wrfhydro_functions as wrfh                                        # Function script packaged with this toolbox
 
 # --- End Import Modules --- #
 

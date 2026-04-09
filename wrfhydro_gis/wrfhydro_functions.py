@@ -1938,7 +1938,7 @@ def force_edges_off_grid(fd_arr, ignore_vals=[]):
     if fd_arr_out[fd_arr_out==0].shape[0] == 0:
         print('    Coerced {0} 0-value flow direction cells to flow off of the grid.'.format(counter))
     else:
-        print('    Could not corece all 0-value flow direction cells to flow off of the grid.')
+        print('    Could not coerce all 0-value flow direction cells to flow off of the grid.')
     return fd_arr_out
 
 def WB_functions(rootgrp, indem, projdir, threshold, ovroughrtfac_val, retdeprtfac_val, lksatfac_val, sink=False, startPts=None, chmask=None):

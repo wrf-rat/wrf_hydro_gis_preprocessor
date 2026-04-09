@@ -1,0 +1,27 @@
+name: wrfh_gis_env
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - gdal
+  - netcdf4
+  - numpy<2
+  - pyproj
+  - whitebox
+  - shapely
+  - packaging
+  - pynhd
+  - pandas
+  - pyyaml
+  - rasterio
+  - scipy
+  - boto3
+  - matplotlib
+  - cartopy
+  - geopandas
+  - ipykernel
+  - setuptools
+  #- py3dep
+  - pip
+  - pip:
+    - elevatr

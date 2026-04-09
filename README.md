@@ -1,46 +1,77 @@
 # WRF-Hydro GIS Preprocessor
 
-## Description:
-The WRF-Hydro GIS Pre-processor provides various scripts and tools for building the geospatial input files for running a WRF-Hydro simulation.
+A two-stage toolkit for preparing geospatial inputs for [NCAR WRF-Hydro](https://ral.ucar.edu/projects/wrf_hydro) hydrological simulations. It automates DEM acquisition and the generation of routing grids, terrain files, and diagnostic outputs from a WRF geogrid (`geo_em`) file.
 
-## Necessary Python Packages and Installation Tips
+## Workflow
 
-The scripts for the WRF-Hydro GIS Pre-processor rely on several python modules a user will need to install such as numpy, gdal, and Whitebox-Tools.  It is highly recommended to use a python distribution such as Miniconda (https://docs.conda.io/en/latest/miniconda.html). An example environment is given below, using the conda package manager to install necessary python modules. The essential packages and versions used in development of this repository are listed below (Windows 64-bit and Python 3.6.10):
+```
+geo_em.d01.nc ──► prepare_dem.py ──► dem.tif ──► gis_preprocess.py ──► routing grids (ZIP)
+```
 
-| Package       | Version       | 
-| ------------- |--------------:| 
-| gdal          | 3.6.3         | 
-| netcdf4       | 1.6.3         |
-| numpy         | 1.24.2        |
-| packaging     | 23.0          |
-| pyproj        | 3.4.1         |
-| python        | 3.10.9        |
-| whitebox      | 2.3.5         |
-| shapely       | 2.0.1         |
+Both scripts are driven by a single shared configuration file (`wrfhydro_gis_config.yaml`).
 
-If you are using Anaconda, creating a new, clean 'wrfh_gis_env' environment with these needed packages can be done easily and simply one of several ways:
+---
 
-* In your conda shell, add one necessary channel (conda-forge) and then download the component libraries from the Anaconda cloud:
-  + `conda config --add channels conda-forge`
-  + `conda create -n wrfh_gis_env -c conda-forge python=3.10 gdal=3.6.3 netCDF4=1.6.3 numpy=1.24.2 pyproj=3.4.1 whitebox=2.3.5 packaging=23.0 shapely=2.0.1`
-  
-* To activate this new environment, type the following at the conda prompt
-  + `activate wrfh_gis_env`
-  
-## How to Run Scripts 
+## Files
 
-### The scripts make use of a function script '\wrfhydro_gis\wrfhydro_functions.py' to pass all functions and selected global parameters parameters to the primary script: 
+### `prepare_dem.py` — DEM Download
 
-+ [Build_Routing_Stack.py](https://github.com/NCAR/wrf_hydro_gis_preprocessor/blob/master/wrfhydro_gis/Build_Routing_Stack.py).
+Downloads a Digital Elevation Model covering the WRF domain.
 
-In turn, these scripts rely on a set of functions in [wrfhydro_functions.py](https://github.com/NCAR/wrf_hydro_gis_preprocessor/blob/master/wrfhydro_gis/wrfhydro_functions.py). 
+1. **Reads the `geo_em` file** to extract the model domain's latitude/longitude extent.
+2. **Buffers the bounding box** (default 0.5°) to ensure full coverage beyond domain edges.
+3. **Fetches elevation tiles** via the [`elevatr`](https://github.com/earth-chris/elevatr) library at a configurable zoom level (0–14).
+4. **Writes a compressed GeoTIFF** (`dem.tif`) to the output directory.
 
-### Running Build_Routing_Stack.py to generate the routing grids for a new WRF-Hydro simulation domain
+Key config keys (`dem_download`): `zoom`, `buffer_deg`, `output_dir`.
 
-Use `-h` when calling any of the scripts on the command-line, for help information. Provide the required and any optional parameters as arguments. The following steps will excecute a process to generate a minimal set of routing grids for the desired domain. This example assumes use of a Bash shell.
+### `gis_preprocess.py` — Routing Stack & Diagnostics
 
-`python Build_Routing_Stack.py -i geo_em.d01.nc -d NED_30m_Croton.tif -R 4 -t 20 -o croton_test.zip`
+Runs the core NCAR `wrfhydro_gis` processing chain to produce all hydrological routing grids.
 
-## NCAR Disclaimer
+1. **(Optional) Boundary shapefile** — exports the geogrid domain outline as an ESRI Shapefile.
+2. **(Optional) GeoTIFF export** — rasterises a selected geogrid variable (e.g. `HGT_M`) for inspection.
+3. **Routing stack** — calls `GEOGRID_STANDALONE` to regrid the DEM, delineate channels, and build the full suite of WRF-Hydro routing files (flow direction, channel grid, lake parameters, groundwater polygons, etc.). Results are packaged into a ZIP archive.
+4. **(Optional) Output examination** — extracts the ZIP and runs `examine_outputs` to generate diagnostic plots and summaries.
 
-The National Center for Atmospheric Research (NCAR) GitHub project code is provided on an "as is" basis and the user assumes responsibility for its use.  NCAR has relinquished control of the information and no longer has responsibility to protect the integrity , confidentiality, or availability of the information.  Any reference to specific commercial products, processes, or services by service mark, trademark, manufacturer, or otherwise, does not constitute or imply their endorsement, recommendation or favoring by NCAR.  The NCAR seal and logo shall not be used in any manner to imply endorsement of any commercial product or activity by NCAR or the National Science Foundation (NSF).
+Key config sections: `paths`, `routing_stack`, `optional_steps`.
+
+### `wrfhydro_gis_config.yaml` — Configuration
+
+Single YAML file shared by both scripts. Sections include:
+
+| Section | Purpose |
+|---|---|
+| `paths` | Input/output file locations (`geo_em`, output directory, optional shapefiles/CSVs) |
+| `routing_stack` | Regrid factor, stream threshold, basin/routing flags, surface-parameter scaling factors |
+| `optional_steps` | Toggle boundary shapefile, GeoTIFF export, and output examination |
+| `dem_download` | Zoom level, bounding-box buffer, and output directory for `prepare_dem.py` |
+
+### `environment.yml` — Conda Environment
+
+Defines the `wrfh_gis_env` conda environment (Python 3.10) with all required dependencies: GDAL, NetCDF4, Rasterio, WhiteBox, GeoPandas, Cartopy, and the pip-installed `elevatr` package.
+
+---
+
+## Quick Start
+
+```bash
+# 1. Create and activate the environment
+conda env create -f environment.yml
+conda activate wrfh_gis_env
+
+# 2. Edit wrfhydro_gis_config.yaml to set your paths and parameters
+
+# 3. Download the DEM
+python prepare_dem.py wrfhydro_gis_config.yaml
+
+# 4. Run the GIS preprocessor
+python gis_preprocess.py wrfhydro_gis_config.yaml
+```
+
+## Requirements
+
+- Python 3.10
+- A valid WRF `geo_em.d01.nc` geogrid file (produced by WPS)
+- Internet access for DEM tile downloads (Step 3)
+- NCAR `wrfhydro_gis` package installed in the environment

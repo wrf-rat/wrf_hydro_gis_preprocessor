@@ -1,0 +1,32 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3)",
+      "Bash(python)",
+      "Bash(conda list:*)",
+      "Bash(powershell -Command \"conda list -n wrfh_gis_env 'numpy|netCDF4'\")",
+      "Bash(powershell -Command \"conda install -n wrfh_gis_env -c conda-forge numpy --force-reinstall -y\")",
+      "Bash(powershell -Command \"conda run -n wrfh_gis_env python -c 'import netCDF4; print\\(\\\\\"netCDF4 OK:\\\\\", netCDF4.__version__\\); import numpy; print\\(\\\\\"numpy OK:\\\\\", numpy.__version__\\)'\")",
+      "Bash(powershell -Command \"conda run -n wrfh_gis_env python -c 'import netCDF4; print\\(netCDF4.__version__\\); import numpy; print\\(numpy.__version__\\)'\")",
+      "Bash(powershell -Command \"conda run -n wrfh_gis_env python -c 'import numpy; print\\(numpy.__file__, numpy.__version__\\)'\")",
+      "Bash(powershell -Command \"conda run -n wrfh_gis_env python -c 'import numpy; print\\(numpy.__dtype_size__\\)'\")",
+      "Bash(powershell -Command \"conda run -n wrfh_gis_env pip show numpy\")",
+      "Bash(powershell -Command \"conda run -n wrfh_gis_env pip uninstall numpy -y\")",
+      "Bash(powershell -Command \"conda install -n wrfh_gis_env -c conda-forge numpy netcdf4 --force-reinstall -y\")",
+      "Bash(powershell -Command \"conda list -n wrfh_gis_env numpy\")",
+      "Bash(powershell -Command \"conda list -n wrfh_gis_env netcdf4\")",
+      "Bash(powershell -Command \"conda run -n wrfh_gis_env python -c 'import numpy; print\\(numpy.__version__\\); print\\(numpy.dtype.__basicsize__\\)'\")",
+      "Bash(powershell -Command \"conda search -c conda-forge netcdf4 --json\")",
+      "Bash(powershell -Command \"conda install -n wrfh_gis_env -c conda-forge 'netcdf4>=1.7' -y\")",
+      "Bash(powershell -Command \"conda run -n wrfh_gis_env python -c 'import sys; print\\(sys.version\\)'\")",
+      "Bash(powershell -Command \"Get-Content C:\\\\Users\\\\mojav\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-mojav-work-Python-wrf-hydro-gis-preprocessor\\\\a60995b8-e469-41eb-948c-868a921b11a3\\\\tasks\\\\bl2cu37e3.output -Tail 20\")",
+      "Bash(powershell -Command \"Get-Content C:\\\\Users\\\\mojav\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-mojav-work-Python-wrf-hydro-gis-preprocessor\\\\a60995b8-e469-41eb-948c-868a921b11a3\\\\tasks\\\\bl2cu37e3.output -Tail 30\")",
+      "Bash(powershell -Command \"conda install -n wrfh_gis_env -c conda-forge 'numpy<2' netcdf4 --force-reinstall -y\")",
+      "Bash(powershell -Command \"conda run -n wrfh_gis_env python prepare_dem.py\")",
+      "Bash(powershell -Command \"Get-Content C:\\\\Users\\\\mojav\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-mojav-work-Python-wrf-hydro-gis-preprocessor\\\\a60995b8-e469-41eb-948c-868a921b11a3\\\\tasks\\\\bfye35zc3.output -Tail 20\")",
+      "Bash(ls \"c:/Users/mojav/work/Python/wrf_hydro_gis_preprocessor/output/\"*.tif)",
+      "Bash(xxd \"c:/Users/mojav/work/Python/wrf_hydro_gis_preprocessor/plot_output.py\")",
+      "Bash(/c/Users/mojav/miniforge3/envs/esd_toolbox/python.exe plot_output.py wrfhydro_gis_config.yaml)"
+    ]
+  }
+}

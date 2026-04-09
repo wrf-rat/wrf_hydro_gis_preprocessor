@@ -28,8 +28,8 @@ import netCDF4
 from argparse import ArgumentParser
 from pathlib import Path
 
-# Import function library into namespace. Must exist in same directory as this script.
-from wrfhydro_functions import WRF_Hydro_Grid
+# Import function library into namespace.
+from .wrfhydro_functions import WRF_Hydro_Grid
 
 # Global Variables
 defaultGeogrid = 'geo_em.d01.nc'

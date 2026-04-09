@@ -1,47 +1,8 @@
-# Compiled source #
-###################
-*.com
-*.class
-*.dll
-*.exe
-*.o
-*.so
-*.pyc
-__pycache__
+/cache
+/input/geo_em.d01.nc
+/input/lakes
+/docs/elevatr
+/gotchas_reference.md
+/wrfhydro_gis_reference.md
+/output
 
-# Packages #
-############
-# it's better to unpack these files and commit the raw source
-# git has its own built in compression methods
-*.7z
-*.dmg
-*.gz
-*.iso
-*.jar
-*.rar
-*.tar
-*.zip
-
-# Logs and databases #
-######################
-*.log
-*.sql
-*.sqlite
-*.txt
-
-# OS generated files #
-######################
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-rom-history
-
-# Other #
-######################
-**/.idea/*
-/wrfhydro_gis/Unused_Code.py
-/wrfhydro_gis/Testing_DEM_interpolation.py

@@ -38,8 +38,8 @@ try:
 except:
     sys.exit('ERROR: cannot find GDAL/OGR modules')
 
-# Import function library into namespace. Must exist in same directory as this script.
-from wrfhydro_functions import WRF_Hydro_Grid                                   # Function script packaged with this toolbox
+# Import function library into namespace.
+from .wrfhydro_functions import WRF_Hydro_Grid                                  # Function script packaged with this toolbox
 
 # --- Global Variables --- #
 outDriverName = 'ESRI Shapefile'                                                # Output vector file format (OGR driver name)

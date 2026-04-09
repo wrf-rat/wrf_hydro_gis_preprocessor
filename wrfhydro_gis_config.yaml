@@ -1,0 +1,38 @@
+# NCAR WRF-HYDRO GIS Preprocessor Configuration
+
+## For gis_preprocess.py
+paths:
+  geo_em: C:\Users\mojav\work\Python\wrf_hydro_gis_preprocessor\input\geo_em.d01.nc
+  output_dir: C:\Users\mojav\work\Python\wrf_hydro_gis_preprocessor\output
+  output_zip: C:\Users\mojav\work\Python\wrf_hydro_gis_preprocessor\output\WRF_Hydro_routing_grids.zip
+
+  # Optional inputs
+  streamgages_csv: C:\Users\mojav\work\Python\wrf_hydro_gis_preprocessor\input\streamgages.csv
+  lakes_shapefile: C:\Users\mojav\work\Python\wrf_hydro_gis_preprocessor\input\lakes\lakes.shp
+  gw_polys: null
+  channel_starts: null
+  channel_mask: null
+
+routing_stack:
+  regrid_factor: 10
+  threshold: 200
+  basin_mask: false
+  routing: false
+  gw_with_stack: true
+  ovroughrtfac_val: 1.0
+  retdeprtfac_val: 1.0
+  lksatfac_val: 1000.0
+
+optional_steps:
+  create_boundary_shapefile: true
+  build_geotiff: true
+  geotiff_variable: HGT_M
+  examine_outputs: true
+
+#######################################################################################################################
+
+## For prepare_dem.py
+dem_download:
+  zoom: 9 # 0-14 (higher = finer resolution)
+  buffer_deg: 0.5
+  output_dir: C:\Users\mojav\work\Python\wrf_hydro_gis_preprocessor\output

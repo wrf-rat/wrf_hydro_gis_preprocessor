@@ -39,8 +39,8 @@ try:
 except:
     sys.exit('ERROR: cannot find GDAL/OGR modules')
 
-# Import function library into namespace. Must exist in same directory as this script.
-from wrfhydro_functions import CSV_to_SHP                                       # Function script packaged with this toolbox
+# Import function library into namespace.
+from .wrfhydro_functions import CSV_to_SHP                                      # Function script packaged with this toolbox
 
 # Global Variables
 

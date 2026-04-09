@@ -47,8 +47,8 @@ try:
 except:
     sys.exit('ERROR: cannot find GDAL/OGR modules')
 
-# Import function library into namespace. Must exist in same directory as this script.
-from wrfhydro_functions import (WRF_Hydro_Grid, RasterDriver, subset_ncVar)
+# Import function library into namespace
+from .wrfhydro_functions import (WRF_Hydro_Grid, RasterDriver, subset_ncVar)
 
 # --- Global Variables --- #
 out_fmt = RasterDriver                                                          # Could overwrite the output format. Default is 'GTiff'

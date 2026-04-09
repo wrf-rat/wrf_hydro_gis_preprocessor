@@ -44,8 +44,8 @@ except:
     sys.exit('ERROR: cannot find GDAL/OGR modules')
 #from gdalnumeric import *                                                      # Assists in using BandWriteArray, BandReadAsArray, and CopyDatasetInfo
 
-# Import function library into namespace. Must exist in same directory as this script.
-from wrfhydro_functions import (LK_nc, RT_nc, GW_nc, LDASFile, crsVar,
+# Import function library into namespace.
+from .wrfhydro_functions import (LK_nc, RT_nc, GW_nc, LDASFile, crsVar,
     numpy_to_Raster, ZipCompat)
 
 # Global Variables

@@ -40,11 +40,10 @@ try:
 except:
     sys.exit('ERROR: cannot find GDAL/OGR modules')
 
-# Import function library into namespace. Must exist in same directory as this script.
+# Import function library into namespace.
 #import wrfhydro_functions as wrfh                                               # Function script packaged with this toolbox
-from wrfhydro_functions import (WRF_Hydro_Grid, GW_nc, GWGRID_nc, dir_d8, streams,
-    basinRaster, RasterDriver, build_GW_Basin_Raster, build_GW_buckets, remove_file,
-    zipUpFolder)
+from .wrfhydro_functions import (WRF_Hydro_Grid, GW_nc, GWGRID_nc, dir_d8, streams,
+    basinRaster, RasterDriver, build_GW_Basin_Raster, build_GW_buckets, remove_file, zipUpFolder)
 #import Examine_Outputs_of_GIS_Preprocessor as EO
 
 # --- Global Variables --- #
